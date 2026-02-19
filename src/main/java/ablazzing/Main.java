@@ -1,8 +1,11 @@
 package ablazzing;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -68,7 +71,57 @@ public class Main {
         Predicate<Integer> isAdult = (age) -> age>17;
         System.out.println(isAdult.test(30));
 
+        Function<Integer,String> automate = (money) -> {
+            if (money == 100) {
+                return "Cola";
+            } else if (money == 50) {
+                return "Water";
+            }else {
+                return "Nothing";
+            }
+        };
+        System.out.println(automate.apply(100));
 
+        Consumer<String> fire = (item) -> {
+          if (item.equals("дрова")){
+              System.out.println("Горит огонь долго");
+          } else if (item.equals("бумага")){
+              System.out.println("Горит огонь быстро");
+          }
+        };
+        fire.accept("дрова");
+
+        Supplier<Integer> talons = () -> new Random().nextInt(100);
+        System.out.println(talons.get());
+
+        Student ivan = new Student(190);
+        Student petr = new Student(180);
+        Student nik = new Student(170);
+
+        List <Student> students = new ArrayList<>();
+        students.add(new Student(190));
+        students.add(new Student(180));
+        students.add(new Student(170));
+        students.add(new Student(150));
+        students.add(new Student(250));
+        students.add(new Student(10));
+
+        System.out.println(students);
+
+        Comparator<Student> studentComparatorAsc = (st1,st2) -> st1.getHeight() - st2.getHeight();
+        students.sort(studentComparatorAsc);
+        System.out.println(students);
+        Comparator<Student> studentComparatorDesc = (st1,st2) -> st2.getHeight() - st1.getHeight();
+        students.sort(studentComparatorDesc);
+        System.out.println(students);
+
+
+        List<Circle> circles = List.of(new Circle("Yellow"),new Circle("Yellow"),new Circle("Yellow"));
+
+        Stream<Circle> stream = circles.stream();
+        stream.forEach(circle -> circle.setColor("Purple"));
+
+        System.out.println(circles);
 
 
     }
