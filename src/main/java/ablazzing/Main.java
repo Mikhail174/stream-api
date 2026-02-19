@@ -116,12 +116,34 @@ public class Main {
         System.out.println(students);
 
 
-        List<Circle> circles = List.of(new Circle("Yellow"),new Circle("Yellow"),new Circle("Yellow"));
 
+        List<Circle> circles = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            circles.add(new Circle("Yellow"));
+        }
+
+        long start = System.currentTimeMillis();
         Stream<Circle> stream = circles.stream();
         stream.forEach(circle -> circle.setColor("Purple"));
+        long end = System.currentTimeMillis();
 
-        System.out.println(circles);
+        //System.out.println(circles);
+        System.out.println((end - start)/1000);
+        long start1 = System.currentTimeMillis();
+        circles.forEach(el->el.setColor("yellow"));
+        long end1 = System.currentTimeMillis();
+        System.out.println((end1 - start1)/1000);
+
+        long start2 = System.currentTimeMillis();
+        Stream<Circle> stream2 = circles.parallelStream();
+        stream2.forEach(circle -> circle.setColor("Purple"));
+        long end2 = System.currentTimeMillis();
+        System.out.println((end2 - start2)/1000);
+
+
+
+
 
 
     }
